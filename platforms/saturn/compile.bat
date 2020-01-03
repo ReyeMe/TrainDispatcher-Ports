@@ -20,10 +20,10 @@ IF NOT EXIST == "./BuildDrop/sl_coff.iso" GOTO compile
 
 :compile
 IF "%1" == "cleanOnly" GOTO end
-copy ./platforms/saturn/makefile "%cd%"
+copy platforms\saturn\makefile "%cd%\"
 make
 JoEngineCueMaker
-rm makefile
+rm "%cd%\makefile"
 del /S *.o
 rm -f ./cd/0.bin
 rm -f %JO_ENGINE_SRC_DIR%/*.o

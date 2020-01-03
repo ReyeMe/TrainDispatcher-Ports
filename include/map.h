@@ -1,7 +1,3 @@
-#ifndef __TILE__
-#define __TILE__
-
-#include "platformhacks.h"
 
 typedef char TileID;
 
@@ -20,6 +16,3 @@ struct TileDescriptor {
 };
 
 TileDescriptor* descriptordata; /* Allocated at runtime. */
-// RIP map data? Guess it didn't save.
-
-#endif

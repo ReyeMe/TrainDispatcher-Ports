@@ -3,7 +3,9 @@
 
 # IDE shit
 .vs
+.vscode
 BuildDrop
+-p
 
 # Object files
 *.o
