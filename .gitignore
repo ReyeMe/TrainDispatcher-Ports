@@ -3,6 +3,7 @@
 
 # IDE shit
 .vs
+BuildDrop
 
 # Object files
 *.o

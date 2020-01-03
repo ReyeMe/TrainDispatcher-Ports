@@ -10,18 +10,20 @@ IF "%1" == "run" GOTO run
 del /S *.o
 rm -f ./cd/0.bin
 rm -f %JO_ENGINE_SRC_DIR%/*.o
-rm -f ./BuildDrop/sl_coff.bin
-rm -f ./BuildDrop/sl_coff.coff
-rm -f ./BuildDrop/sl_coff.map
-rm -f ./BuildDrop/sl_coff.iso
-rm -f ./BuildDrop/sl_coff.cue
+rm -f ./BuildDrop/Saturn/sl_coff.bin
+rm -f ./BuildDrop/Saturn/sl_coff.coff
+rm -f ./BuildDrop/Saturn/sl_coff.map
+rm -f ./BuildDrop/Saturn/sl_coff.iso
+rm -f ./BuildDrop/Saturn/sl_coff.cue
 IF "%1" == "cleanOnly" GOTO end
 IF NOT EXIST == "./BuildDrop/sl_coff.iso" GOTO compile
 
 :compile
 IF "%1" == "cleanOnly" GOTO end
-make re
+copy ./platforms/saturn/makefile "%cd%"
+make
 JoEngineCueMaker
+rm makefile
 del /S *.o
 rm -f ./cd/0.bin
 rm -f %JO_ENGINE_SRC_DIR%/*.o
@@ -40,12 +42,12 @@ ECHO "Task Fail"
 GOTO end
 
 :moveBuild
-mkdir BuildDrop
-move .\sl_coff.bin .\BuildDrop\
-move .\sl_coff.coff .\BuildDrop\
-move .\sl_coff.map .\BuildDrop\
-move .\sl_coff.iso .\BuildDrop\
-move .\sl_coff.cue .\BuildDrop\
+mkdir -p BuildDrop\Saturn
+move .\sl_coff.bin .\BuildDrop\Saturn\
+move .\sl_coff.coff .\BuildDrop\Saturn\
+move .\sl_coff.map .\BuildDrop\Saturn\
+move .\sl_coff.iso .\BuildDrop\Saturn\
+move .\sl_coff.cue .\BuildDrop\Saturn\
 GOTO compileEnd
 
 :close
