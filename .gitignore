@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# IDE shit
+.vs
+
 # Object files
 *.o
 *.ko
