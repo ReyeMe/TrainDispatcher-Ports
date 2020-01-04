@@ -81,7 +81,7 @@ void mouseInput(void)
     }
     else if (jo_is_pad1_key_down(JO_MOUSE_RIGHT_BUTTON))
     {
-        
+
     }
     else if (jo_is_pad1_key_down(JO_MOUSE_START_BUTTON))
     {
@@ -156,6 +156,7 @@ void loadSprites(void)
 void saturn_panic_handler(char* panic_reason, const char* function_name) {
     #ifdef JO_DEBUG
     __jo_core_error(panic_reason, function_name);
+    jo_clear_background(JO_COLOR_Black);
     #endif
 }
 
