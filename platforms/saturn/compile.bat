@@ -33,8 +33,8 @@ IF NOT "%1" == "alsoRun" GOTO end
 
 :run
 SET EMULATOR_DIR=Z:\Programming\SDK\Saturn\Emulators
-IF EXIST ".\BuildDrop\sl_coff.iso" "%EMULATOR_DIR%\yabause\yabause.exe" -a -i .\BuildDrop\sl_coff.cue
-IF NOT EXIST ".\BuildDrop\sl_coff.iso" GOTO closeError
+IF EXIST ".\BuildDrop\Saturn\sl_coff.iso" "%EMULATOR_DIR%\yabause\yabause.exe" -a -i .\BuildDrop\Saturn\sl_coff.cue
+IF NOT EXIST ".\BuildDrop\Saturn\sl_coff.iso" GOTO closeError
 GOTO end
 
 :closeError
@@ -42,7 +42,7 @@ ECHO "Task Fail"
 GOTO end
 
 :moveBuild
-mkdir -p BuildDrop\Saturn
+mkdir BuildDrop\Saturn
 move .\sl_coff.bin .\BuildDrop\Saturn\
 move .\sl_coff.coff .\BuildDrop\Saturn\
 move .\sl_coff.map .\BuildDrop\Saturn\
