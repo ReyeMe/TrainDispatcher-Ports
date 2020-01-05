@@ -4,11 +4,21 @@
 #include "../../include/platformhacks.h"
 #include "../../include/input.h"
 #include "../../include/textures.h"
+#include "../../include/time.h"
 
 /**
  * If this variable is false, game will pause and ask for supported device to be plugged in
  */
 bool inputIsValid = true;
+
+/**
+ * Count frames, 60 = 1 second
+ */
+#define SECOND_IN_FRAMES 60
+char frames = 0;
+
+/* Temporary, will remnove later */
+long test_second = 0;
 
 /**
  * If drive door opens return to boot menu
@@ -38,6 +48,13 @@ void mainLoop(void)
 
     // TODO: call game logic
     // ...
+
+    // All loops are synced to 60fps by JO-Engine
+    if (++frames >= SECOND_IN_FRAMES)
+    {
+        frames = 0;
+        time_UpdateSeconds(time_current);
+    }
 }
 
 /**
@@ -194,6 +211,8 @@ void renderLoop(void)
         return;
     }
 
+    jo_printf(10,10,"%02d:%02d:%02d", time_current->Hours, time_current->Minutes, time_current->Seconds);
+
     // Draw mouse cursor at Z=100 and where X,Y have origin at top left corner of the screen
     jo_sprite_draw3D2(tex_cursor_idle, input_mouse_x - CURSOR_SIZE_HALF, input_mouse_y - CURSOR_SIZE_HALF, 100);
 }
@@ -267,6 +286,8 @@ void jo_main(void)
 
     // Initialize engine core
     jo_core_init(JO_COLOR_Black);
+    time_current = p_alloc(sizeof(GameTime));
+    time_Reset(time_current);
 
     // Load stuff
     loadSprites();    
