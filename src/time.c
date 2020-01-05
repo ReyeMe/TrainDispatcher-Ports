@@ -6,7 +6,7 @@
  */
 void time_Reset(GameTime *time)
 {
-    time->Hours = 20;
+    time->Hours = 0;
     time->Minutes = 0;
     time->Seconds = 0;
 }
