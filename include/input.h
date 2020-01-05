@@ -7,6 +7,8 @@ static unsigned short input_mouse_y = 0;
 
 enum KeyInput {
     KI_SELECT = 1,
+    KI_CANCEL = 2,
+    KI_ESCAPE = 4,
 
     /* Debug keys! */
     KI_SHOWHIDE_DEBUG_MENU = 128,
