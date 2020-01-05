@@ -2,7 +2,7 @@
 #define __TEXTURES__
 
 /**
- * Sursor textures
+ * Cursor textures
  */
 #define CURSOR_SIZE_HALF 16
 static int tex_cursor_idle;
@@ -12,8 +12,7 @@ static int tex_cursor_wait;
 /**
  * UI textures
  */
-
-
+static int tex_input_error;
 
 /**
  * Rail tile sprite indexes

@@ -6,6 +6,11 @@
 #include "../../include/textures.h"
 
 /**
+ * If this variable is false, game will pause and ask for supported device to be plugged in
+ */
+bool inputIsValid = true;
+
+/**
  * If drive door opens return to boot menu
  */
 void checkDriveDoor(void)
@@ -25,7 +30,14 @@ void checkDriveDoor(void)
  */
 void mainLoop(void)
 {
+    if (!inputIsValid)
+    {
+        // Pause game
+        return;
+    }
 
+    // TODO: call game logic
+    // ...
 }
 
 /**
@@ -63,8 +75,8 @@ void gamePadInput(void)
     }
 
     // Dont allow mouse to go outside of bounds
-    input_mouse_x = JO_MAX(JO_MIN(position_x, JO_TV_WIDTH - 4), 0);
-    input_mouse_y = JO_MAX(JO_MIN(position_y, JO_TV_HEIGHT - 4), 0);
+    input_mouse_x = JO_MAX(JO_MIN(position_x, JO_TV_WIDTH - 3), 0);
+    input_mouse_y = JO_MAX(JO_MIN(position_y, JO_TV_HEIGHT - 3), 0);
 
     // Bind A,B, C buttons to keys
     if (jo_is_pad1_key_down(JO_KEY_A))
@@ -110,7 +122,7 @@ void mouseInput(void)
  */
 void inputLoop(void)
 {
-    bool inputIsValid = false;
+    bool isValid = false;
 
     // Devices we really should support:
     // Sega saturn controller (standard)
@@ -122,27 +134,52 @@ void inputLoop(void)
     {
         jo_gamepad_type type = jo_get_input_type(0);
 
-        if (type == JoRegularGamepad)
+        // 3D gamepad has id of 0x16
+        if (type == JoRegularGamepad ||
+            type == Jo3DGamepad)
         {
             gamePadInput();
-            inputIsValid = true;
+            isValid = true;
         }
         else if (type == JoRegularMouse ||
                  type == JoShuttleMouse)
         {
             mouseInput();
-            inputIsValid = true;
+            isValid = true;
         }
     }
 
-    if (inputIsValid)
+    if (isValid)
     {
         process_inputs();
     }
-    else
+
+    inputIsValid = isValid;
+}
+
+/**
+ * Draw invalid input message on screen
+ */
+void showInvalidInputMessage(void)
+{
+    jo_clear_screen();
+    jo_gamepad_type type = jo_get_input_type(0);
+
+    switch (type)
     {
-        // set up a indicator to pause game and tell player to plug in gamepad or other supported device.
+        case JoUnsupportedGamepad:
+            jo_printf_with_color(7,18, JO_COLOR_INDEX_Red,"Controller not supported!");
+            break;
+        
+        case JoNotConnectedGamepad:
+            jo_printf_with_color(8,18, JO_COLOR_INDEX_Red,"No Controller detected!");
+            break;
+
+        default:
+            break;
     }
+
+    jo_sprite_draw3D(tex_input_error, 0, 0, 500);
 }
 
 /**
@@ -150,6 +187,13 @@ void inputLoop(void)
  */
 void renderLoop(void)
 {
+    // Show invalid input message
+    if (!inputIsValid)
+    {
+        showInvalidInputMessage();
+        return;
+    }
+
     // Draw mouse cursor at Z=100 and where X,Y have origin at top left corner of the screen
     jo_sprite_draw3D2(tex_cursor_idle, input_mouse_x - CURSOR_SIZE_HALF, input_mouse_y - CURSOR_SIZE_HALF, 100);
 }
@@ -165,6 +209,7 @@ void loadSprites(void)
     tex_cursor_wait = jo_sprite_add_tga("UI", "CUR_WAIT.TGA", JO_COLOR_Black);
 
     // Load UI stuff
+    tex_input_error = jo_sprite_add_tga("UI", "GP_ERR.TGA", JO_COLOR_Black);
 
     // Load tiles
     tex_tile_depo_left = jo_sprite_add_tga("TILES", "DL.TGA", JO_COLOR_Black);
@@ -222,6 +267,8 @@ void jo_main(void)
 
     // Initialize engine core
     jo_core_init(JO_COLOR_Black);
+
+    // Load stuff
     loadSprites();    
 
     // Run game logic on main CPU
