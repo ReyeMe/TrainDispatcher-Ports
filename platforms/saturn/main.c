@@ -3,7 +3,7 @@
 #include <jo/jo.h>
 #include "../../include/platformhacks.h"
 #include "../../include/input.h"
-#include "../../include/textures.h"
+#include "textures.h"
 #include "../../include/time.h"
 
 /**
@@ -16,9 +16,6 @@ bool inputIsValid = true;
  */
 #define SECOND_IN_FRAMES 60
 char frames = 0;
-
-/* Temporary, will remnove later */
-long test_second = 0;
 
 /**
  * If drive door opens return to boot menu
