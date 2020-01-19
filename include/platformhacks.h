@@ -2,12 +2,12 @@
 #define __HACKS__
 
 #ifdef _SATURN
-#define bool Bool
+#include <jo/jo.h>
 #endif
 
 void* (*p_alloc)(unsigned int); /*fnptr to alloc*/
-void (*p_free)(void *); /* fnpointer to free*/
-void (*p_panic)(char*, char*);
+void (*p_free)(const void * const p); /* fnpointer to free*/
+void (*p_panic)(char*, const char*);
 
 
 #endif

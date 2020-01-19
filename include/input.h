@@ -1,3 +1,8 @@
+#ifndef __INPUT__
+#define __INPUT__
+
+#include "platformhacks.h"
+
 static unsigned char active_inputs[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 static unsigned char active_inputs_depth = 0;
@@ -16,14 +21,8 @@ enum KeyInput {
     KI_FORCE_TRAIN_SPAWN = 130,
 };
 
-void push_key_input(char input) {
-    if (active_inputs_depth >= 7) {
-        p_panic("Input buffer overflow", __FUNCTION__);
-    }
-    active_inputs[active_inputs_depth++] = input;
-}
+void push_key_input(char input);
 
-void process_inputs() {
-    active_inputs_depth = 0;
-    // Do a thing!
-}
+void process_inputs();
+
+#endif

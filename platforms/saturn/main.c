@@ -1,10 +1,10 @@
 #define DEBUG
 
-#include <jo/jo.h>
 #include "../../include/platformhacks.h"
 #include "../../include/input.h"
-#include "textures.h"
 #include "../../include/time.h"
+#include "../../include/windowManager.h"
+#include "textures.h"
 
 /**
  * If this variable is false, game will pause and ask for supported device to be plugged in
@@ -285,6 +285,7 @@ void jo_main(void)
     jo_core_init(JO_COLOR_Black);
     time_current = p_alloc(sizeof(GameTime));
     time_Reset(time_current);
+    WM_Initialize();
 
     // Load stuff
     loadSprites();    

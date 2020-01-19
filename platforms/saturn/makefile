@@ -10,8 +10,7 @@ JO_COMPILE_WITH_DUAL_CPU_MODULE = 1
 JO_DEBUG = 1
 JO_NTSC = 1
 JO_COMPILE_USING_SGL=1
-_SATURN = 1
-SRCS=platforms/saturn/main.c src/map.c src/time.c
+SRCS=platforms/saturn/main.c src/map.c src/time.c src/windowManager.c src/input.c
 JO_ENGINE_SRC_DIR=Z:/Programming/SDK/Saturn/jo_engine
 COMPILER_DIR=Z:/Programming/SDK/Saturn/Compiler
 include $(COMPILER_DIR)/COMMON/jo_engine_makefile
