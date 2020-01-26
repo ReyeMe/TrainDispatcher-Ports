@@ -5,6 +5,7 @@
 #include "../../include/time.h"
 #include "../../include/windowManager.h"
 #include "textures.h"
+#include "WM_render.h"
 
 /**
  * If this variable is false, game will pause and ask for supported device to be plugged in
@@ -149,8 +150,7 @@ void inputLoop(void)
         jo_gamepad_type type = jo_get_input_type(0);
 
         // 3D gamepad has id of 0x16
-        if (type == JoRegularGamepad ||
-            type == Jo3DGamepad)
+        if (type == JoRegularGamepad)
         {
             gamePadInput();
             isValid = true;
@@ -166,6 +166,7 @@ void inputLoop(void)
     if (isValid)
     {
         process_inputs();
+        WM_ProcessInput();
     }
 
     inputIsValid = isValid;
@@ -207,11 +208,14 @@ void renderLoop(void)
         showInvalidInputMessage();
         return;
     }
-
-    jo_printf(10,10,"%02d:%02d:%02d", time_current->Hours, time_current->Minutes, time_current->Seconds);
+    
+    jo_printf(2,2,"%02d:%02d:%02d", time_current->Hours, time_current->Minutes, time_current->Seconds);
 
     // Draw mouse cursor at Z=100 and where X,Y have origin at top left corner of the screen
     jo_sprite_draw3D2(tex_cursor_idle, input_mouse_x - CURSOR_SIZE_HALF, input_mouse_y - CURSOR_SIZE_HALF, 100);
+    
+    // Render controls
+    WM_Render();
 }
 
 /**
@@ -226,6 +230,9 @@ void loadSprites(void)
 
     // Load UI stuff
     tex_input_error = jo_sprite_add_tga("UI", "GP_ERR.TGA", JO_COLOR_Black);
+    tex_cnt_window = jo_sprite_add_tga("UI", "WND_BG.TGA", JO_COLOR_Black);
+    tex_ui_font = jo_font_load("UI", "FN_UI.TGA", JO_COLOR_Green, 8, 8, 2, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"?=%&',.()*+-/");
+    tex_ui_fontButton = jo_font_load("UI", "FN_UIB.TGA", JO_COLOR_Green, 8, 8, 2, "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!\"?=%&',.()*+-/");
 
     // Load tiles
     tex_tile_depo_left = jo_sprite_add_tga("TILES", "DL.TGA", JO_COLOR_Black);
@@ -286,6 +293,20 @@ void jo_main(void)
     time_current = p_alloc(sizeof(GameTime));
     time_Reset(time_current);
     WM_Initialize();
+
+    // Setup SGL
+    slCurWindow(winNear); 
+    slWindow(0, 0, JO_TV_WIDTH-1, JO_TV_HEIGHT-1, 1024, JO_TV_WIDTH_2, JO_TV_HEIGHT_2);
+    slScrWindow0(0, 0, JO_TV_WIDTH-1, JO_TV_HEIGHT-1);
+    slScrWindowModeNbg1(win0_IN);
+    slScrWindowModeNbg0(win1_IN);
+    slPerspective(70);
+    slZdspLevel(6);
+
+    // Create test window with label and button
+    WM_Control *window = WM_CreateWidget(50,50,200,75,WM_Type_Window,NULL,NULL);
+    WM_CreateWidget(10,10,180,55,WM_Type_Label,window,NULL)->Text = "THIS IS A LABEL.";
+    WM_CreateWidget(135,60,60,9,WM_Type_Button,window,NULL)->Text = "BUTTON";
 
     // Load stuff
     loadSprites();    

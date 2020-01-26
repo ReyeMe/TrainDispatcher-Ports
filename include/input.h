@@ -7,8 +7,8 @@ static unsigned char active_inputs[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 static unsigned char active_inputs_depth = 0;
 
-static unsigned short input_mouse_x = 0;
-static unsigned short input_mouse_y = 0;
+unsigned short input_mouse_x;
+unsigned short input_mouse_y;
 
 enum KeyInput {
     KI_SELECT = 1,

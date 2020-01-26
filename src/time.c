@@ -1,5 +1,4 @@
 #include "../include/time.h"
-#include "../include/platformhacks.h"
 
 /**
  * Reset time back to zero 

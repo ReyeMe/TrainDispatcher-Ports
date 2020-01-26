@@ -7,10 +7,11 @@ JO_COMPILE_WITH_PSEUDO_MODE7_MODULE = 0
 JO_COMPILE_WITH_EFFECTS_MODULE = 0
 JO_PSEUDO_SATURN_KAI_SUPPORT = 1
 JO_COMPILE_WITH_DUAL_CPU_MODULE = 1
+JO_COMPILE_WITH_FS_SUPPORT = 1
 JO_DEBUG = 1
 JO_NTSC = 1
 JO_COMPILE_USING_SGL=1
-SRCS=platforms/saturn/main.c src/map.c src/time.c src/windowManager.c src/input.c
+SRCS=platforms/saturn/main.c src/map.c src/time.c src/windowManager.c src/input.c platforms/saturn/WM_render.c
 JO_ENGINE_SRC_DIR=Z:/Programming/SDK/Saturn/jo_engine
 COMPILER_DIR=Z:/Programming/SDK/Saturn/Compiler
 include $(COMPILER_DIR)/COMMON/jo_engine_makefile

@@ -5,51 +5,54 @@
  * Cursor textures
  */
 #define CURSOR_SIZE_HALF 16
-static int tex_cursor_idle;
-static int tex_cursor_hand;
-static int tex_cursor_wait;
+int tex_cursor_idle;
+int tex_cursor_hand;
+int tex_cursor_wait;
 
 /**
  * UI textures
  */
-static int tex_input_error;
+jo_font *tex_ui_font;
+jo_font *tex_ui_fontButton;
+int tex_input_error;
+int tex_cnt_window;
 
 /**
  * Rail tile sprite indexes
  */
 #define TILE_STRAIGHT_ROTATION 2
-static int tex_tile_straight_horizontal = 0;
-static int tex_tile_straight_vertical = 0;
-static int tex_tile_straight_diagonal_left = 0;
-static int tex_tile_straight_diagonal_right = 0;
+int tex_tile_straight_horizontal;
+int tex_tile_straight_vertical;
+int tex_tile_straight_diagonal_left;
+int tex_tile_straight_diagonal_right;
 
 #define TILE_TURN_ROTATION 4
-static int tex_tile_turn_left = 0;
-static int tex_tile_turn_up = 0;
-static int tex_tile_turn_right = 0;
-static int tex_tile_turn_down = 0;
-static int tex_tile_turn_left_mirror = 0;
-static int tex_tile_turn_up_mirror = 0;
-static int tex_tile_turn_right_mirror = 0;
-static int tex_tile_turn_down_mirror = 0;
+int tex_tile_turn_left;
+int tex_tile_turn_up;
+int tex_tile_turn_right;
+int tex_tile_turn_down;
+int tex_tile_turn_left_mirror;
+int tex_tile_turn_up_mirror;
+int tex_tile_turn_right_mirror;
+int tex_tile_turn_down_mirror;
 
 /**
  * Special rail tile sprite indexes
  */
 #define TILE_SPECIAL_ROTATION 4
-static int tex_tile_depo_left = 0;
-static int tex_tile_depo_up = 0;
-static int tex_tile_depo_right = 0;
-static int tex_tile_depo_down = 0;
+int tex_tile_depo_left;
+int tex_tile_depo_up;
+int tex_tile_depo_right;
+int tex_tile_depo_down;
 
-static int tex_tile_signal_enabled_left = 0;
-static int tex_tile_signal_enabled_up = 0;
-static int tex_tile_signal_enabled_right = 0;
-static int tex_tile_signal_enabled_down = 0;
+int tex_tile_signal_enabled_left;
+int tex_tile_signal_enabled_up;
+int tex_tile_signal_enabled_right;
+int tex_tile_signal_enabled_down;
 
-static int tex_tile_signal_disabled_left = 0;
-static int tex_tile_signal_disabled_up = 0;
-static int tex_tile_signal_disabled_right = 0;
-static int tex_tile_signal_disabled_down = 0;
+int tex_tile_signal_disabled_left;
+int tex_tile_signal_disabled_up;
+int tex_tile_signal_disabled_right;
+int tex_tile_signal_disabled_down;
 
 #endif
