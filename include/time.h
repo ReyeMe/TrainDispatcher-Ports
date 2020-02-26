@@ -35,18 +35,18 @@ typedef struct
 /**
  * Current time 
  */
-static GameTime *time_current;
+static GameTime *Time_Current;
 
 /**
  * Reset time back to zero
  * @param Item to reset
  */
-void time_Reset(GameTime *time);
+void Time_Reset(GameTime *time);
 
 /**
  * Move time forward by 1 second
  * @param Item to update
  */
-void time_UpdateSeconds(GameTime *time);
+void Time_UpdateSeconds(GameTime *time);
 
 #endif

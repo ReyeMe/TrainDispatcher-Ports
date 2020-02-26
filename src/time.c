@@ -3,7 +3,7 @@
 /**
  * Reset time back to zero 
  */
-void time_Reset(GameTime *time)
+void Time_Reset(GameTime *time)
 {
     time->Hours = 0;
     time->Minutes = 0;
@@ -13,7 +13,7 @@ void time_Reset(GameTime *time)
 /**
  * Move time forward by 1 second 
  */
-void time_UpdateSeconds(GameTime *time)
+void Time_UpdateSeconds(GameTime *time)
 {
     if (++time->Seconds >= TIME_LENGTH)
     {

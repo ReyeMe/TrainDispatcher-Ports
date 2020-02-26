@@ -1,28 +1,50 @@
 #ifndef __INPUT__
 #define __INPUT__
 
-#include "platformhacks.h"
+/**
+ * Available buttons
+ */
+typedef enum
+{
+    Btn_None,
+    Btn_Left,
+    Btn_Middle,
+    Btn_Right,
+    Btn_Escape
+} Button;
 
-static unsigned char active_inputs[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+/**
+ * Mouse position
+ */
+typedef struct
+{
+    int X;
+    int Y;
+    int Cursor;
+} Mouse;
 
-static unsigned char active_inputs_depth = 0;
+/**
+ * Cursor texture indexes and half size
+ */
+#define CURSOR_SIZE_HALF 16
+int Input_CursorIdle;
+int Input_CursorHand;
+int Input_CursorWait;
+int Input_CursorMove;
 
-unsigned short input_mouse_x;
-unsigned short input_mouse_y;
+/**
+ * Mouse data
+ */
+Mouse Input_Mouse = { 0, 0, 0 };
 
-enum KeyInput {
-    KI_SELECT = 1,
-    KI_CANCEL = 2,
-    KI_ESCAPE = 4,
+/**
+ * Called when button is pressed
+ */
+void (*Input_ButtonPressed)(Button button);
 
-    /* Debug keys! */
-    KI_SHOWHIDE_DEBUG_MENU = 128,
-    KI_STOP_TRAIN_SPAWNING = 129,
-    KI_FORCE_TRAIN_SPAWN = 130,
-};
-
-void push_key_input(char input);
-
-void process_inputs();
+/**
+ * Called when button is clicked
+ */
+void (*Input_ButtonClicked)(Button button);
 
 #endif
