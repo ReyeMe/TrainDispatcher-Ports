@@ -304,7 +304,6 @@ void jo_main(void)
     p_free = jo_free;
     p_panic = saturn_panic_handler;
     p_readFile = jo_fs_read_file_in_dir;
-;
 
     // Initialize engine core
     jo_core_init(JO_COLOR_Black);

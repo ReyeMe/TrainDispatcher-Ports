@@ -32,21 +32,21 @@ typedef enum {
  */
 typedef struct {
     char name[MAP_TILE_NAME_LENGTH];
-} Rail_Station;
+} Rail_TypeStation;
 
 /**
  * Signal data
  */
 typedef struct {
     bool active;
-} Rail_Signal;
+} Rail_TypeSignal;
 
 /**
  * Depo data
  */
 typedef struct {
     char name[MAP_TILE_NAME_LENGTH];
-} Rail_Depo;
+} Rail_TypeDepo;
 
 /**
  * Basic rail
