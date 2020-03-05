@@ -35,7 +35,7 @@ int Input_CursorMove;
 /**
  * Mouse data
  */
-Mouse Input_Mouse = { 0, 0, 0 };
+Mouse Input_Mouse;
 
 /**
  * Called when button is pressed

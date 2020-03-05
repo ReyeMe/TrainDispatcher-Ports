@@ -3,42 +3,74 @@
 
 #include "platformhacks.h"
 
-typedef unsigned char TileID;
+#define MAP_TILE_NAME_LENGTH 24
+#define MAP_SIZE 101
 
-enum TileDir {
-    TDIR_UP = 1,
-    TDIR_UP_RIGHT = 2,
-    TDIR_RIGHT = 4,
-    TDIR_DOWN_RIGHT = 8,
-    TDIR_DOWN = 16,
-    TDIR_DOWN_LEFT = 32,
-    TDIR_LEFT = 64,
-    TDIR_UP_LEFT = 128,
-};
+/**
+ * Rail types
+ */
+typedef enum {
+    Rail_Empty = 0,
+    Rail_Track,
+    Rail_Station,
+    Rail_Signal,
+    Rail_Depo
+} Map_RailType;
 
+/**
+ * Rail types
+ */
+typedef enum {
+    Rail_0deg = 0,
+    Rail_90deg,
+    Rail_180deg,
+    Rail_270deg
+} Map_RailRotation;
+
+/**
+ * Station data
+ */
 typedef struct {
-    TileID tile_id;
-    char flags;
-} MapTile;
+    char name[MAP_TILE_NAME_LENGTH];
+} Rail_Station;
 
+/**
+ * Signal data
+ */
 typedef struct {
-    char rail_dirs;
-    char shadow_rail_dirs;
+    bool active;
+} Rail_Signal;
 
-    short attributes;
+/**
+ * Depo data
+ */
+typedef struct {
+    char name[MAP_TILE_NAME_LENGTH];
+} Rail_Depo;
 
-    TileID next_form;
-} TileDescriptor;
+/**
+ * Basic rail
+ */
+typedef struct Rail{
+    unsigned char code;
+    Map_RailRotation rotation;
+    Map_RailType type;
+    struct Rail* nextForm;
+    void* additionalData;
+} Rail;
 
-struct MapData {
-    char* map_name;
-    unsigned char size_x;
-    unsigned char size_y;
-    MapTile* tiles;
+/**
+ * Basic map tile
+ */
+typedef struct {
+    Rail *rail;
+    char level;
+} Tile;
 
-    unsigned char num_descriptors;
-    TileDescriptor* descriptors;
-
-};
+/**
+ * Load map data from file
+ * @return Loaded map data
+ */
+Tile* Map_Load(const char* file);
 
 #endif

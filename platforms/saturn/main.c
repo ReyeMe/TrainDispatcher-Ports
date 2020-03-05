@@ -4,6 +4,7 @@
 #include "../../include/input.h"
 #include "../../include/time.h"
 #include "../../include/input.h"
+#include "../../include/engine.h"
 #include "textures.h"
 
 /**
@@ -43,8 +44,7 @@ void mainLoop(void)
         return;
     }
 
-    // TODO: call game logic
-    // ...
+    Core_GameLogic(Time_Current);
 
     // All loops are synced to 60fps by JO-Engine
     if (++frames >= SECOND_IN_FRAMES)
@@ -303,11 +303,14 @@ void jo_main(void)
     p_alloc = jo_malloc; // Set up platform allocator
     p_free = jo_free;
     p_panic = saturn_panic_handler;
+    p_readFile = jo_fs_read_file_in_dir;
+;
 
     // Initialize engine core
     jo_core_init(JO_COLOR_Black);
     Time_Current = p_alloc(sizeof(GameTime));
     Time_Reset(Time_Current);
+    Core_Initialize();
 
     // Default cursor to center screen and set default cursor image
     Input_Mouse.X = JO_TV_WIDTH_2;
